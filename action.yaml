@@ -1,8 +1,18 @@
 name: env Context
 description: Add host environment variables to the env context
 author: In Loco
+inputs:
+  mask:
+    description: Environment variables to mask
+    default: ''
 runs:
   using: composite
-  steps: 
+  steps:
+    - shell: bash
+      run: |
+        for VAR in ${{ inputs.mask }}
+        do
+          echo "::add-mask::${!VAR}"
+        done
     - shell: bash
       run: env >> ${GITHUB_ENV}
