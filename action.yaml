@@ -1,0 +1,8 @@
+name: env Context
+description: Add host environment variables to the env context
+author: In Loco
+runs:
+  using: composite
+  steps: 
+    - shell: bash
+      run: env >> ${GITHUB_ENV}
