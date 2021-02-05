@@ -15,4 +15,9 @@ runs:
           echo "::add-mask::${!VAR}"
         done
     - shell: bash
-      run: env >> ${GITHUB_ENV}
+      run: |
+        awk 'BEGIN{for(v in ENVIRON) print v}' | while read e; do
+          echo "$e<<EOF" >> $GITHUB_ENV
+          echo "${!e}" >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+        done
